@@ -10,8 +10,11 @@ class ProductReviewsController < ApplicationController
       @product_review = ProductReview.new(product_review_params)
       @product_review.product_id = @product.id
       @product_review.user_id = current_user.id
-      @product_review.save
+      if @product_review.save
       redirect_to companies_path
+    else
+      render :new
+    end
     else
       redirect_to login_path, notice: "Must be logged in to review a product"
     end
